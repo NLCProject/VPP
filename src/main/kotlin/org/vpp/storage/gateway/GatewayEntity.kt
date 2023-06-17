@@ -1,9 +1,8 @@
 package org.vpp.storage.gateway
 
+import org.vpp.storage.client.ClientEntity
 import org.vpp.storage.framework.DistributedEntity
-import javax.persistence.Column
-import javax.persistence.Entity
-import javax.persistence.Table
+import javax.persistence.*
 
 @Entity
 @Table(name = "gateway")
@@ -23,4 +22,7 @@ class GatewayEntity : DistributedEntity() {
 
     @Column(nullable = false)
     lateinit var serialNumber: String
+
+    @OneToMany(cascade = [CascadeType.MERGE], mappedBy = "gateway")
+    var clients: MutableList<ClientEntity> = mutableListOf()
 }

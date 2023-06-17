@@ -1,4 +1,4 @@
-package org.vpp.adapter.websocket
+package org.vpp.adapter.gateway.websocket
 
 import java.net.URI
 import java.nio.ByteBuffer

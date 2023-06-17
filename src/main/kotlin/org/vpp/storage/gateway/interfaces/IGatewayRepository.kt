@@ -8,5 +8,5 @@ import java.util.*
 @Service
 interface IGatewayRepository : ICrudlRepository<GatewayEntity> {
 
-    fun findAllBySerialNumber(serialNumber: String): Optional<GatewayEntity>
+    fun findBySerialNumber(serialNumber: String): Optional<GatewayEntity>
 }

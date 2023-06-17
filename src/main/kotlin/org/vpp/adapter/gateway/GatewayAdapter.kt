@@ -3,7 +3,8 @@ package org.vpp.adapter.gateway
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
-import org.vpp.adapter.websocket.WebsocketAdapter
+import org.vpp.adapter.gateway.http.GatewayRestAdapter
+import org.vpp.adapter.gateway.websocket.WebsocketAdapter
 import org.vpp.storage.gateway.GatewayEntity
 import org.vpp.storage.gateway.GatewayRepository
 import org.vpp.utils.validation.ValidationUtil
@@ -11,7 +12,8 @@ import org.vpp.utils.validation.ValidationUtil
 @Service
 class GatewayAdapter @Autowired constructor(
     private val websocketAdapter: WebsocketAdapter,
-    private val gatewayRepository: GatewayRepository
+    private val gatewayRepository: GatewayRepository,
+    private val gatewayRestAdapter: GatewayRestAdapter
 ) {
 
     private val logger = LoggerFactory.getLogger(this::class.java)
@@ -23,7 +25,7 @@ class GatewayAdapter @Autowired constructor(
         ValidationUtil.verifyIfEmptyAndThrow(value = dto.serialNumber)
         ValidationUtil.verifyIfValueZeroOrLowerAndThrow(value = dto.gatewayPort)
 
-        val optional = gatewayRepository.findAllBySerialNumber(serialNumber = dto.serialNumber)
+        val optional = gatewayRepository.findBySerialNumber(serialNumber = dto.serialNumber)
         if (optional.isPresent)
             return logger.info("Gateway with serial number '${dto.serialNumber}' already registered")
 
@@ -37,6 +39,7 @@ class GatewayAdapter @Autowired constructor(
 
         gateway = gatewayRepository.save(entity = gateway)
         logger.info("Gateway with serial number '${dto.serialNumber}' now registered")
-        websocketAdapter.run(gateway = gateway)
+        websocketAdapter.connect(gateway = gateway)
+        gatewayRestAdapter.requestClientsFromGateway(gateway = gateway)
     }
 }
