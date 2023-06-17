@@ -19,6 +19,10 @@
   <mat-tab label="{{ gateway.serialNumber }}" fxFlex="90">
     <app-system-overview [clients]="gateway.clients" [loading]="loading"></app-system-overview>
   </mat-tab>
+
+  <mat-tab label="c20cf4ca-3014-4ba6-92f2-7d5ae49bca53" fxFlex="90">
+    <app-system-overview [clients]="[]" [loading]="loading"></app-system-overview>
+  </mat-tab>
 </mat-tab-group>
 
 <mat-menu #menu="matMenu">
