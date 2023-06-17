@@ -1,11 +1,11 @@
 package org.vpp.api.gateway
 
+import org.gateway.utils.controller.CrossOriginData
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.ResponseEntity
 import org.springframework.stereotype.Controller
 import org.springframework.transaction.annotation.Transactional
 import org.springframework.web.bind.annotation.*
-import org.gateway.utils.controller.CrossOriginData
 import org.vpp.api.gateway.dto.GatewayDtoMapper
 import org.vpp.utils.controller.ControllerCallback
 

@@ -4,7 +4,6 @@ import java.net.URI
 import java.nio.ByteBuffer
 import javax.websocket.*
 
-
 @ClientEndpoint
 class WebsocketClientEndpoint {
 

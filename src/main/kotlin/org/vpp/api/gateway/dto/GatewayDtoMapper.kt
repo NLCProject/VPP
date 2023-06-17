@@ -19,4 +19,5 @@ class GatewayDtoMapper @Autowired constructor(
                 clients = it.clients.map { client -> clientDtoMapper.map(client = client) }
             )
         }
+        .sortedBy { it.id }
 }

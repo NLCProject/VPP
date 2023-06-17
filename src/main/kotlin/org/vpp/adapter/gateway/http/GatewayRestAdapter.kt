@@ -39,8 +39,10 @@ class GatewayRestAdapter @Autowired constructor(
                     clientRepository.save(entity = client)
                 }
         } catch (exception: Exception) {
-            logger.error("Error while requesting clients from gateway with serial number '${gateway.serialNumber}' " +
-                "| ${exception.message}")
+            logger.error(
+                "Error while requesting clients from gateway with serial number '${gateway.serialNumber}' " +
+                    "| ${exception.message}"
+            )
         }
     }
 }

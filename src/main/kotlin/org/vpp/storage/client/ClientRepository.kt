@@ -1,9 +1,9 @@
 package org.vpp.storage.client
 
-import org.vpp.storage.framework.Repository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 import org.vpp.storage.client.interfaces.IClientRepository
+import org.vpp.storage.framework.Repository
 import java.util.*
 
 @Service
