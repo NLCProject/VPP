@@ -20,7 +20,7 @@ class GatewayAdapterController @Autowired constructor(
 ) {
 
     @PostMapping(value = ["/register"])
-    fun registerGateway(
+    fun register(
         @RequestBody dto: GatewayAdapterDto
     ): ResponseEntity<*> = ControllerCallback.postOperation {
         gatewayAdapter.persistGateway(dto = dto)
