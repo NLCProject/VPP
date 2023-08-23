@@ -1,4 +1,4 @@
-package org.vpp.dto
+package org.vpp.storageApi.dto
 
 import kotlinx.serialization.Serializable
 import javax.persistence.MappedSuperclass
@@ -8,7 +8,5 @@ import javax.persistence.MappedSuperclass
 abstract class Dto {
     lateinit var id: String
     var timestampCreated: Long = 0
-    lateinit var dateTimeCreated: String
     var timestampLastModified: Long? = null
-    var dateTimeLastModified: String? = null
 }

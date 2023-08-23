@@ -1,6 +1,7 @@
 package org.vpp.storage.gateway
 
-import org.vpp.storage.client.ClientEntity
+import org.vpp.storage.batterySystem.BatterySystemEntity
+import org.vpp.storage.consumerGroup.ConsumerGroupEntity
 import org.vpp.storage.framework.DistributedEntity
 import javax.persistence.*
 
@@ -23,6 +24,9 @@ class GatewayEntity : DistributedEntity() {
     @Column(nullable = false)
     lateinit var serialNumber: String
 
-    @OneToMany(cascade = [CascadeType.MERGE], mappedBy = "gateway")
-    var clients: MutableList<ClientEntity> = mutableListOf()
+    @OneToMany(fetch = FetchType.EAGER, cascade = [CascadeType.MERGE], mappedBy = "gateway")
+    var systems: MutableList<BatterySystemEntity> = mutableListOf()
+
+    @OneToMany(fetch = FetchType.EAGER, cascade = [CascadeType.MERGE], mappedBy = "gateway")
+    var groups = mutableListOf<ConsumerGroupEntity>()
 }

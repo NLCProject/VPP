@@ -40,6 +40,6 @@ class GatewayAdapter @Autowired constructor(
         gateway = gatewayRepository.save(entity = gateway)
         logger.info("Gateway with serial number '${dto.serialNumber}' now registered")
         websocketAdapter.connect(gateway = gateway)
-        gatewayRestAdapter.requestClientsFromGateway(gateway = gateway)
+        gatewayRestAdapter.requestSystems(gateway = gateway)
     }
 }

@@ -1,4 +1,4 @@
-package org.vpp.dto
+package org.vpp.storage.batterySystem
 
 import kotlinx.serialization.Serializable
 

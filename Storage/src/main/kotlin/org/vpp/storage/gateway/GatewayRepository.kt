@@ -11,6 +11,8 @@ class GatewayRepository @Autowired constructor(
     private val repository: IGatewayRepository
 ) : Repository<GatewayEntity>(repository = repository) {
 
+    fun findById(gatewayId: String): GatewayEntity = repository.findById(gatewayId).get()
+
     fun findBySerialNumber(serialNumber: String): Optional<GatewayEntity> =
         repository.findBySerialNumber(serialNumber = serialNumber)
 }

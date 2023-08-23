@@ -49,6 +49,7 @@ dependencies {
     implementation project(':Utils')
     implementation project(':Adapter')
     implementation project(':Storage')
+    implementation project(':StorageApi')
     implementation project(':InternalApi')
     implementation("mysql:mysql-connector-java:${mySqlVersion}")
     implementation group: 'org.apache.commons', name: 'commons-lang3', version: '3.12.0'

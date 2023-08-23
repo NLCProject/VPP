@@ -2,7 +2,7 @@ package org.vpp.adapter.websocket.dto
 
 import kotlinx.serialization.Serializable
 import org.vpp.adapter.websocket.dto.helper.MessageType
-import org.vpp.dto.SystemStatus
+import org.vpp.storage.batterySystem.SystemStatus
 
 @Serializable
 class SystemStatusChanged {
