@@ -37,7 +37,7 @@ export class ConsumerGroupModeSelectionComponent implements OnInit {
     const controls = this.formGroup!!.controls;
     const mode = controls['mode'].value;
 
-    this.service.changeConsumerMode(this.data.group.id, this.data.group.gatewayId, mode).subscribe(
+    this.service.changeConsumerMode(this.data.group.gatewayId, this.data.group.id, mode).subscribe(
       () => {
         this.translationService.showSnackbar('Updated');
         this.dialogRef.close();

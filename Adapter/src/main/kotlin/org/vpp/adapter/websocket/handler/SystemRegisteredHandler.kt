@@ -13,8 +13,8 @@ import org.vpp.utils.validation.ValidationUtil
 
 @Service
 class SystemRegisteredHandler @Autowired constructor(
-    private val batterySystemRepository: BatterySystemRepository,
-    private val gatewayRepository: GatewayRepository
+    private val gatewayRepository: GatewayRepository,
+    private val batterySystemRepository: BatterySystemRepository
 ) : MessageHandler, JsonSerialization() {
 
     private val logger = LoggerFactory.getLogger(this::class.java)

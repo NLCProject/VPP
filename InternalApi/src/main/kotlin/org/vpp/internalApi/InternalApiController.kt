@@ -22,7 +22,9 @@ class InternalApiController @Autowired constructor(
 
     @GetMapping(value = ["/findAll"])
     fun findAll(): ResponseEntity<*> = ControllerCallback.getOperation {
-        gatewayService.findAll()
+        gatewayService
+            .findAll()
+            .sortedBy { it.id }
     }
 
     @GetMapping(value = ["/findById"])

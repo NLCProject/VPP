@@ -5,6 +5,7 @@ import org.vpp.storage.consumerGroup.ConsumerGroupEntity
 import org.vpp.storage.consumerGroup.WiringMode
 import org.vpp.storageApi.batterySytem.BatterySystemConverter
 import org.vpp.storageApi.dto.DtoConverter
+import kotlin.math.roundToInt
 
 object ConsumerGroupConverter {
 
@@ -12,6 +13,17 @@ object ConsumerGroupConverter {
         name = entity.name
         mode = entity.mode
         wiring = entity.wiring
+        gatewayId = entity.gatewayId
+        voltage = (calculateVoltage(entity) * 100.0).roundToInt() / 100.0
+        systems = entity.systems.map { BatterySystemConverter.convert(it) }
+        DtoConverter.convert(entity = entity, dto = this)
+    }
+
+    fun convertOnSubLevel(entity: ConsumerGroupEntity): ConsumerGroupDto = ConsumerGroupDto().apply {
+        name = entity.name
+        mode = entity.mode
+        wiring = entity.wiring
+        gatewayId = entity.gatewayId
         voltage = calculateVoltage(entity)
         DtoConverter.convert(entity = entity, dto = this)
     }

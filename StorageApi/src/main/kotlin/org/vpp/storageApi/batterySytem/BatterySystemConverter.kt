@@ -10,6 +10,7 @@ object BatterySystemConverter {
         status = entity.status
         manufacturer = entity.manufacturer
         serialNumber = entity.serialNumber
+        group = ConsumerGroupConverter.convertOnSubLevel(entity.group)
         DtoConverter.convert(entity = entity, dto = this)
     }
 }

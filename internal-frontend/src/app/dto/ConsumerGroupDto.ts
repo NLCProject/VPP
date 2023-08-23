@@ -7,6 +7,7 @@ export class ConsumerGroupDto extends Dto {
   name: string = '';
   gatewayId: string = '';
   voltage = 0;
+  standard = false;
   systems: BatterySystemDto[] = [];
   mode: ConsumerMode = ConsumerMode.None;
   wiring: WiringMode = WiringMode.Unknown;

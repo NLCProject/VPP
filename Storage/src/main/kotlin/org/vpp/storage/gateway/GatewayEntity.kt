@@ -23,6 +23,6 @@ class GatewayEntity : DistributedEntity() {
     @Column(nullable = false)
     lateinit var serialNumber: String
 
-    @OneToMany(fetch = FetchType.EAGER, cascade = [CascadeType.MERGE], mappedBy = "gateway")
+    @OneToMany(cascade = [CascadeType.MERGE], mappedBy = "gateway")
     var systems: MutableList<BatterySystemEntity> = mutableListOf()
 }

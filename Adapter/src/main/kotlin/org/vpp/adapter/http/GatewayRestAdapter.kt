@@ -36,6 +36,7 @@ class GatewayRestAdapter @Autowired constructor(
             decodeList<BatterySystemDto>(data = response.body!!)
                 .forEach {
                     val client = batterySystemRepository.findByIdOptional(it.id).orElse(BatterySystemEntity()).apply {
+                        this.id = it.id
                         this.gateway = gateway
                         this.status = it.status
                         this.manufacturer = it.manufacturer
