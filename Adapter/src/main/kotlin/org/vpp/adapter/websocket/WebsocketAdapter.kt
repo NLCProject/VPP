@@ -3,6 +3,7 @@ package org.vpp.adapter.websocket
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
+import org.vpp.adapter.http.GatewayRestAdapter
 import org.vpp.adapter.websocket.dto.helper.MessageType
 import org.vpp.adapter.websocket.handler.SystemRegisteredHandler
 import org.vpp.adapter.websocket.handler.SystemStatusChangedHandler
@@ -12,6 +13,7 @@ import java.net.URISyntaxException
 
 @Service
 class WebsocketAdapter @Autowired constructor(
+    private val gatewayRestAdapter: GatewayRestAdapter,
     private val systemRegisteredHandler: SystemRegisteredHandler,
     private val voltageMeasurementHandler: VoltageMeasurementHandler,
     private val systemStatusChangedHandler: SystemStatusChangedHandler
@@ -38,6 +40,11 @@ class WebsocketAdapter @Autowired constructor(
 
                         message.contains(MessageType.VoltageMeasurement.name) ->
                             voltageMeasurementHandler.handle(message = message)
+
+                        message.contains(MessageType.ConsumerGroupsChanged.name) -> {
+                            gatewayRestAdapter.requestSystems(gateway)
+                            gatewayRestAdapter.requestGroups(gateway)
+                        }
 
                         message.contains(MessageType.SystemRegistered.name) -> logger.info("System registered")
                         message == "Connection successful" -> logger.info("Connection successful")

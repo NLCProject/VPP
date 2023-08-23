@@ -7,8 +7,9 @@ import org.vpp.storageApi.dto.Dto
 
 @Serializable
 class BatterySystemDto : Dto() {
+    var voltage: Double = 0.0
     lateinit var status: SystemStatus
     lateinit var manufacturer: String
     lateinit var serialNumber: String
-    lateinit var group: ConsumerGroupDto
+    var group: ConsumerGroupDto? = null
 }

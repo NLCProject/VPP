@@ -35,21 +35,51 @@ class GatewayRestAdapter @Autowired constructor(
             response.body ?: return logger.error("Empty response body received")
             decodeList<BatterySystemDto>(data = response.body!!)
                 .forEach {
-                    val client = batterySystemRepository.findByIdOptional(it.id).orElse(BatterySystemEntity()).apply {
-                        this.id = it.id
-                        this.gateway = gateway
-                        this.status = it.status
-                        this.manufacturer = it.manufacturer
-                        this.serialNumber = it.serialNumber
-                        this.group = consumerGroupService.findOrCreateGroup(group = it.group, gateway = gateway)
+                    val optional = batterySystemRepository.findByIdOptional(it.id)
+                    if (optional.isPresent) {
+                        logger.info("Existing system with ID '${it.id}' found")
+                        val entity = optional.get()
+                        entity.status = it.status
+                        entity.manufacturer = it.manufacturer
+                        entity.serialNumber = it.serialNumber
+                        entity.group = consumerGroupService.findOrCreateGroup(group = it.group!!, gateway = gateway)
+                        batterySystemRepository.save(entity)
+                        return
                     }
 
-                    logger.info("Saving client with serial number '${client.serialNumber}'")
-                    batterySystemRepository.save(entity = client)
+                    val entity = BatterySystemEntity()
+                    entity.id = it.id
+                    entity.gateway = gateway
+                    entity.status = it.status
+                    entity.manufacturer = it.manufacturer
+                    entity.serialNumber = it.serialNumber
+                    entity.group = consumerGroupService.findOrCreateGroup(group = it.group!!, gateway = gateway)
+
+                    logger.info("Saving client with serial number '${entity.serialNumber}'")
+                    batterySystemRepository.save(entity)
                 }
         } catch (exception: Exception) {
             logger.error(
                 "Error while requesting systems from gateway with serial number '${gateway.serialNumber}' " +
+                    "| ${exception.message}"
+            )
+        }
+    }
+
+    fun requestGroups(gateway: GatewayEntity) {
+        try {
+            logger.info("Requesting consumer groups from gateway with serial number '${gateway.serialNumber}'")
+            val uri = "http://${gateway.gatewayHost}:${gateway.gatewayPort}/api/public/consumer/findAll"
+            logger.info("Connecting to gateway via URL '$uri'")
+            val response = RestTemplate().getForEntity(uri, String::class.java)
+            logger.info("Response code from gateway | ${response.statusCode}")
+
+            response.body ?: return logger.error("Empty response body received")
+            decodeList<ConsumerGroupDto>(data = response.body!!)
+                .forEach { consumerGroupService.findOrCreateGroup(group = it, gateway = gateway) }
+        } catch (exception: Exception) {
+            logger.error(
+                "Error while requesting systems from consumer groups with serial number '${gateway.serialNumber}' " +
                     "| ${exception.message}"
             )
         }
@@ -65,6 +95,7 @@ class GatewayRestAdapter @Autowired constructor(
             val response = RestTemplate().postForEntity(uri, null, String::class.java)
             logger.info("Response code from gateway | ${response.statusCode}")
             requestSystems(gateway)
+            requestGroups(gateway)
         } catch (exception: Exception) {
             logger.error("Error while changing consumer mode of group ID '$groupId' | ${exception.message}")
         }

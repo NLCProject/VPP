@@ -11,6 +11,7 @@ object BatterySystemConverter {
         manufacturer = entity.manufacturer
         serialNumber = entity.serialNumber
         group = ConsumerGroupConverter.convertOnSubLevel(entity.group)
+        voltage = entity.measurements.maxByOrNull { it.timestampCreated }?.value ?: 0.0
         DtoConverter.convert(entity = entity, dto = this)
     }
 }

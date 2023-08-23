@@ -24,7 +24,7 @@ object ConsumerGroupConverter {
         mode = entity.mode
         wiring = entity.wiring
         gatewayId = entity.gatewayId
-        voltage = calculateVoltage(entity)
+        voltage = (calculateVoltage(entity) * 100.0).roundToInt() / 100.0
         DtoConverter.convert(entity = entity, dto = this)
     }
 
