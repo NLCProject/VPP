@@ -10,8 +10,8 @@ object GatewayConverter {
 
     fun convert(entity: GatewayEntity, groups: List<ConsumerGroupEntity>): GatewayDto = GatewayDto().apply {
         this.serialNumber = entity.serialNumber
-        this.groups = groups.map { ConsumerGroupConverter.convertOnSubLevel(it) }
-        this.systems = entity.systems.map { BatterySystemConverter.convertOnSubLevel(it) }
+        this.groups = groups.map { ConsumerGroupConverter.convert(it) }
+        this.systems = entity.systems.map { BatterySystemConverter.convert(it) }
         DtoConverter.convert(entity = entity, dto = this)
     }
 }

@@ -1,4 +1,5 @@
 import {Component, Input} from '@angular/core';
+import { ConsumerMode } from 'src/app/dto/ConsumerMode';
 import { SystemStatus } from 'src/app/dto/SystemStatus';
 import {BatterySystemDto} from '../../../dto/BatterySystemDto';
 
@@ -10,10 +11,11 @@ import {BatterySystemDto} from '../../../dto/BatterySystemDto';
 export class SystemOverviewComponent {
 
   @Input()
-  public clients: BatterySystemDto[] = [];
+  public systems: BatterySystemDto[] = [];
 
   @Input()
   public loading: boolean = true;
 
+  public ConsumerMode = ConsumerMode;
   public SystemStatus = SystemStatus;
 }

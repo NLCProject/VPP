@@ -2,6 +2,7 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {SystemService} from "../../services/rest/system.service";
 import {GatewayDto} from "../../dto/GatewayDto";
 import {TranslationService} from "../../services/translation/translation.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-toolbar',
@@ -11,14 +12,13 @@ import {TranslationService} from "../../services/translation/translation.service
 export class ToolbarComponent implements OnInit, OnDestroy {
 
   constructor(
+    protected router: Router,
     private systemService: SystemService,
     private translationService: TranslationService
   ) { }
 
+  private interval: any = null;
   public loading = true;
-  public selectedTab = 0;
-  private interval = null;
-  private loadingInternal = false;
   public gateways: GatewayDto[] = [];
 
   public ngOnInit(): void {
@@ -31,30 +31,26 @@ export class ToolbarComponent implements OnInit, OnDestroy {
     }
   }
 
+  public openDetails(gatewayId: string): void {
+    this.router.navigate([`/gateway/details`, gatewayId]);
+  }
+
   private loadInterval(): void {
     this.loadData();
 
-    // @ts-ignore
     this.interval = setInterval(() => {
       this.loadData();
-    }, 10_000);
+    }, 2_000);
   }
 
   private loadData(): void {
-    if (this.loadingInternal) {
-      return;
-    }
-
-    this.loadingInternal = true;
     this.systemService.findAll().subscribe(
       response => {
         this.gateways = response;
         this.loading = false;
-        this.loadingInternal = false;
       }, error => {
         this.translationService.showSnackbar(error);
         this.loading = false;
-        this.loadingInternal = false;
       }
     );
   }

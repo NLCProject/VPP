@@ -5,10 +5,18 @@ body {
   height: 93vh;
 }
 
-app-system-overview{
+app-system-overview {
   height: 100%;
 }
 
-h1, h2, h3, h4, p, span {
+h1, h2, h3, h4 {
   font-family: 'helvetica-bold';
+}
+
+p, span {
+  font-family: 'helvetica-regular';
+}
+
+app-progress-bar-dialog {
+  width: 100%;
 }

@@ -25,6 +25,11 @@ class InternalApiController @Autowired constructor(
         gatewayService.findAll()
     }
 
+    @GetMapping(value = ["/findById"])
+    fun findById(@RequestParam gatewayId: String): ResponseEntity<*> = ControllerCallback.getOperation {
+        gatewayService.findById(gatewayId)
+    }
+
     @PostMapping(value = ["/changeConsumerMode"])
     fun changeConsumerMode(
         @RequestParam groupId: String,

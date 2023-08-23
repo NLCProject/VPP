@@ -13,15 +13,6 @@ object ConsumerGroupConverter {
         mode = entity.mode
         wiring = entity.wiring
         voltage = calculateVoltage(entity)
-        systems = entity.systems.map { BatterySystemConverter.convertOnSubLevel(it) }
-        DtoConverter.convert(entity = entity, dto = this)
-    }
-
-    fun convertOnSubLevel(entity: ConsumerGroupEntity): ConsumerGroupDto = ConsumerGroupDto().apply {
-        name = entity.name
-        mode = entity.mode
-        wiring = entity.wiring
-        voltage = calculateVoltage(entity)
         DtoConverter.convert(entity = entity, dto = this)
     }
 

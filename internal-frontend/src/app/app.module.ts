@@ -21,6 +21,8 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
+import {MatSelectModule} from '@angular/material/select';
+import {MatDividerModule} from '@angular/material/divider';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -31,6 +33,10 @@ import {MatMenuModule} from '@angular/material/menu';
 import {MatTabsModule} from '@angular/material/tabs';
 import { ProgressBarComponent } from './components/progress-bar/progress-bar.component';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
+import { ConsumerGroupOverviewComponent } from './components/consumerGroup/consumer-group-overview/consumer-group-overview.component';
+import { GatewayOverviewComponent } from './components/gateway/gateway-overview/gateway-overview.component';
+import { ConsumerGroupModeSelectionComponent } from './components/consumerGroup/consumer-group-mode-selection/consumer-group-mode-selection.component';
+import { ProgressBarDialogComponent } from './components/progress-bar-dialog/progress-bar-dialog.component';
 
 export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
   return new TranslateHttpLoader(http);
@@ -41,7 +47,11 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     AppComponent,
     ToolbarComponent,
     SystemOverviewComponent,
-    ProgressBarComponent
+    ProgressBarComponent,
+    ConsumerGroupOverviewComponent,
+    GatewayOverviewComponent,
+    ConsumerGroupModeSelectionComponent,
+    ProgressBarDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -66,6 +76,8 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     MatIconModule,
     MatFormFieldModule,
     MatListModule,
+    MatSelectModule,
+    MatDividerModule,
     MatInputModule,
     MatSidenavModule,
     MatSnackBarModule,

@@ -10,6 +10,7 @@ import org.vpp.storageApi.dto.Dto
 class ConsumerGroupDto : Dto() {
     lateinit var name: String
     var voltage: Double = 0.0
+    lateinit var gatewayId: String
     lateinit var mode: ConsumerMode
     lateinit var wiring: WiringMode
     var systems: List<BatterySystemDto> = emptyList()

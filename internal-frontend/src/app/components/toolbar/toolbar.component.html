@@ -1,35 +1,16 @@
 <app-progress-bar [loading]="loading"></app-progress-bar>
 
-<mat-toolbar color="primary">
-  <mat-toolbar-row>
-    <span>Virtual Power Plant</span>
-    <span class="spacer"></span>
-    <button mat-icon-button [matMenuTriggerFor]="menu">
-      <mat-icon>menu</mat-icon>
-    </button>
-  </mat-toolbar-row>
-</mat-toolbar>
+<mat-tab-group mat-align-tabs="center">
+  <mat-tab label="Gateway" fxFlex="90">
+    <div fxLayout="column" fxLayoutAlign="center center" *ngIf="(gateways.length === 0) && !loading">
+      <div style="width: 100%; height: 100px;"></div>
+      <h1 class="no-entries">Keine Gateways registriert</h1>
+    </div>
 
-<div fxLayout="column" fxLayoutAlign="center center" *ngIf="(gateways.length === 0) && !loading">
-  <div style="width: 100%; height: 100px;"></div>
-  <h1 class="no-entries">Keine Gateways registriert</h1>
-</div>
-
-<mat-tab-group [(selectedIndex)]="selectedTab" mat-align-tabs="center" *ngFor="let gateway of gateways">
-  <mat-tab label="{{ gateway.serialNumber }}" fxFlex="90">
-    <app-system-overview [clients]="gateway.clients" [loading]="loading"></app-system-overview>
-  </mat-tab>
-
-  <mat-tab label="c20cf4ca-3014-4ba6-92f2-7d5ae49bca53" fxFlex="90">
-    <app-system-overview [clients]="[]" [loading]="loading"></app-system-overview>
+    <mat-divider *ngIf="gateways.length > 0"></mat-divider>
+    <mat-list role="list" *ngFor="let gateway of gateways">
+      <mat-list-item role="listitem">{{ gateway.serialNumber }}</mat-list-item>
+      <mat-divider></mat-divider>
+    </mat-list>
   </mat-tab>
 </mat-tab-group>
-
-<mat-menu #menu="matMenu">
-  <button
-    class="menu-button"
-    mat-menu-item>
-    <mat-icon>person</mat-icon>
-    <span>Login</span>
-  </button>
-</mat-menu>

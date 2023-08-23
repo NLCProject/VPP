@@ -15,6 +15,11 @@ export class SystemService extends RestHeaderService {
     return this.http.get<GatewayDto[]>(url, this.getHeaders());
   }
 
+  public findById(gatewayId: string): Observable<GatewayDto> {
+    const url = `${this.getBaseUrl(this.path)}/findById?gatewayId=${gatewayId}`;
+    return this.http.get<GatewayDto>(url, this.getHeaders());
+  }
+
   public changeConsumerMode(gatewayId: string, groupId: string, mode: ConsumerMode): Observable<void> {
     const url = `${this.getBaseUrl(this.path)}/changeConsumerMode?gatewayId=${gatewayId}&groupId=${groupId}&mode=${mode}`;
     return this.http.post<void>(url, null, this.getHeaders());

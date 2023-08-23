@@ -11,6 +11,13 @@ class GatewayService @Autowired constructor(
     private val consumerGroupRepository: ConsumerGroupRepository
 ) {
 
+    fun findById(gatewayId: String) = gatewayRepository
+        .findById(gatewayId)
+        .let {
+            val groups = consumerGroupRepository.findAllByGatewayId(it.id)
+            GatewayConverter.convert(entity = it, groups = groups)
+        }
+
     fun findAll(): List<GatewayDto> = gatewayRepository
         .findAll()
         .map {

@@ -1,2 +1,15 @@
 {
+  "Serial": "Seriell",
+  "Parallel": "Parallel",
+  "Unknown": "Unbekannt",
+  "None": "Keiner",
+  "Loading": "Ladend",
+  "Consuming": "Verbrauchend",
+  "Consumer Mode": "Verbrauchermodus",
+  "Consumer Group": "Verbraucher-Gruppe",
+  "Wiring Mode": "Verkabelung",
+  "Voltage": "Spannung",
+  "Systems": "Systeme",
+  "Name": "Name",
+  "Updated": "Aktualisiert"
 }

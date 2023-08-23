@@ -5,6 +5,7 @@ import {Dto} from "./Dto";
 
 export class ConsumerGroupDto extends Dto {
   name: string = '';
+  gatewayId: string = '';
   voltage = 0;
   systems: BatterySystemDto[] = [];
   mode: ConsumerMode = ConsumerMode.None;
