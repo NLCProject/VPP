@@ -2,7 +2,6 @@ package org.vpp.storage.consumerGroup
 
 import org.vpp.storage.batterySystem.BatterySystemEntity
 import org.vpp.storage.framework.DistributedEntity
-import org.vpp.storage.gateway.GatewayEntity
 import javax.persistence.*
 
 @Entity
@@ -21,8 +20,6 @@ class ConsumerGroupEntity : DistributedEntity() {
     @OneToMany(fetch = FetchType.EAGER, cascade = [CascadeType.MERGE], mappedBy = "group")
     var systems = mutableListOf<BatterySystemEntity>()
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = [CascadeType.MERGE])
-    @JoinColumn(name = "gateway_id")
-    lateinit var gateway: GatewayEntity
-
+    @Column(nullable = false)
+    lateinit var gatewayId: String
 }

@@ -28,10 +28,10 @@ class ConsumerGroupService @Autowired constructor(
         logger.info("Creating consuming group with ID '${group.id}'")
         val entity = ConsumerGroupEntity().apply {
             this.id = group.id
-            this.gateway = gateway
             this.name = group.name
             this.mode = group.mode
             this.wiring = group.wiring
+            this.gatewayId = gateway.id
         }
 
         return repository.save(entity)

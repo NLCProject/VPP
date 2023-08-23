@@ -11,6 +11,8 @@ class BatterySystemRepository @Autowired constructor(
     private val repository: IBatterySystemRepository
 ) : Repository<BatterySystemEntity>(repository = repository) {
 
+    fun findByIdOptional(id: String): Optional<BatterySystemEntity> = repository.findById(id)
+
     fun findBySerialNumber(serialNumber: String): Optional<BatterySystemEntity> =
         repository.findBySerialNumber(serialNumber = serialNumber)
 }

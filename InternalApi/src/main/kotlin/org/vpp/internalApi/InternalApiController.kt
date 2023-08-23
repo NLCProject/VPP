@@ -26,8 +26,12 @@ class InternalApiController @Autowired constructor(
     }
 
     @PostMapping(value = ["/changeConsumerMode"])
-    fun changeConsumerMode(@RequestParam groupId: String, @RequestParam mode: ConsumerMode): ResponseEntity<*> =
+    fun changeConsumerMode(
+        @RequestParam groupId: String,
+        @RequestParam gatewayId: String,
+        @RequestParam mode: ConsumerMode
+    ): ResponseEntity<*> =
         ControllerCallback.postOperation {
-            gatewayRestAdapter.changeConsumerMode(groupId = groupId, mode = mode)
+            gatewayRestAdapter.changeConsumerMode(groupId = groupId, gatewayId = gatewayId, mode = mode)
         }
 }

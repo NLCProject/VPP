@@ -5,4 +5,7 @@ import org.vpp.storage.consumerGroup.ConsumerGroupEntity
 import org.vpp.storage.framework.ICrudlRepository
 
 @Service
-interface IConsumerGroupRepository : ICrudlRepository<ConsumerGroupEntity>
+interface IConsumerGroupRepository : ICrudlRepository<ConsumerGroupEntity> {
+
+    fun findAllByGatewayId(gatewayId: String): List<ConsumerGroupEntity>
+}

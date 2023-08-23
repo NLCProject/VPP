@@ -1,13 +1,12 @@
 import {WiringMode} from "./WiringMode";
 import {ConsumerMode} from "./ConsumerMode";
-import {ClientDto} from "./ClientDto";
+import {BatterySystemDto} from "./BatterySystemDto";
+import {Dto} from "./Dto";
 
-export class ConsumerGroupDto {
-  id: string = '';
+export class ConsumerGroupDto extends Dto {
   name: string = '';
   voltage = 0;
-  systems: ClientDto[] = [];
-  standard = false;
+  systems: BatterySystemDto[] = [];
   mode: ConsumerMode = ConsumerMode.None;
   wiring: WiringMode = WiringMode.Unknown;
 }

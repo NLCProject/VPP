@@ -1,7 +1,6 @@
 package org.vpp.storage.gateway
 
 import org.vpp.storage.batterySystem.BatterySystemEntity
-import org.vpp.storage.consumerGroup.ConsumerGroupEntity
 import org.vpp.storage.framework.DistributedEntity
 import javax.persistence.*
 
@@ -26,7 +25,4 @@ class GatewayEntity : DistributedEntity() {
 
     @OneToMany(fetch = FetchType.EAGER, cascade = [CascadeType.MERGE], mappedBy = "gateway")
     var systems: MutableList<BatterySystemEntity> = mutableListOf()
-
-    @OneToMany(fetch = FetchType.EAGER, cascade = [CascadeType.MERGE], mappedBy = "gateway")
-    var groups = mutableListOf<ConsumerGroupEntity>()
 }

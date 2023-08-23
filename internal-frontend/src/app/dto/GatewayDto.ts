@@ -1,7 +1,9 @@
-import { ClientDto } from './ClientDto';
+import { BatterySystemDto } from './BatterySystemDto';
+import {ConsumerGroupDto} from "./ConsumerGroupDto";
+import {Dto} from "./Dto";
 
-export class GatewayDto {
-  id: string = '';
+export class GatewayDto extends Dto {
   serialNumber: string = '';
-  clients: ClientDto[] = [];
+  systems: BatterySystemDto[] = [];
+  groups: ConsumerGroupDto[] = [];
 }

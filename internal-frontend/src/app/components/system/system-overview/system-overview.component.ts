@@ -1,6 +1,6 @@
 import {Component, Input} from '@angular/core';
 import { SystemStatus } from 'src/app/dto/SystemStatus';
-import {ClientDto} from '../../../dto/ClientDto';
+import {BatterySystemDto} from '../../../dto/BatterySystemDto';
 
 @Component({
   selector: 'app-system-overview',
@@ -10,7 +10,7 @@ import {ClientDto} from '../../../dto/ClientDto';
 export class SystemOverviewComponent {
 
   @Input()
-  public clients: ClientDto[] = [];
+  public clients: BatterySystemDto[] = [];
 
   @Input()
   public loading: boolean = true;

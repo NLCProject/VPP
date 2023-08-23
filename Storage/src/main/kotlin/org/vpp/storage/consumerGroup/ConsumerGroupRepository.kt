@@ -11,4 +11,6 @@ class ConsumerGroupRepository @Autowired constructor(
 ) : Repository<ConsumerGroupEntity>(repository = repository) {
 
     fun findById(groupId: String): ConsumerGroupEntity = repository.findById(groupId).get()
+
+    fun findAllByGatewayId(gatewayId: String): List<ConsumerGroupEntity> = repository.findAllByGatewayId(gatewayId)
 }

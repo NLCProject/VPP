@@ -17,9 +17,9 @@ import org.vpp.utils.serialzation.JsonSerialization
 
 @Service
 class GatewayRestAdapter @Autowired constructor(
+    private val gatewayRepository: GatewayRepository,
     private val consumerGroupService: ConsumerGroupService,
-    private val batterySystemRepository: BatterySystemRepository,
-    private val consumerGroupRepository: ConsumerGroupRepository
+    private val batterySystemRepository: BatterySystemRepository
 ) : JsonSerialization() {
 
     private val logger = LoggerFactory.getLogger(this::class.java)
@@ -35,7 +35,7 @@ class GatewayRestAdapter @Autowired constructor(
             response.body ?: return logger.error("Empty response body received")
             decodeList<BatterySystemDto>(data = response.body!!)
                 .forEach {
-                    val client = BatterySystemEntity().apply {
+                    val client = batterySystemRepository.findByIdOptional(it.id).orElse(BatterySystemEntity()).apply {
                         this.gateway = gateway
                         this.status = it.status
                         this.manufacturer = it.manufacturer
@@ -54,15 +54,16 @@ class GatewayRestAdapter @Autowired constructor(
         }
     }
 
-    fun changeConsumerMode(groupId: String, mode: ConsumerMode) {
+    fun changeConsumerMode(groupId: String, gatewayId: String, mode: ConsumerMode) {
         try {
             logger.info("Changing consumer mode of group ID '$groupId' to mode '$mode'")
-            val gateway = consumerGroupRepository.findById(groupId).gateway
+            val gateway = gatewayRepository.findById(gatewayId)
             val uri = "http://${gateway.gatewayHost}:${gateway.gatewayPort}/api/public/consumer/changeConsumerMode?" +
                 "groupId=$groupId&mode=$mode"
             logger.info("Connecting to gateway via URL '$uri'")
             val response = RestTemplate().postForEntity(uri, null, String::class.java)
             logger.info("Response code from gateway | ${response.statusCode}")
+            requestSystems(gateway)
         } catch (exception: Exception) {
             logger.error("Error while changing consumer mode of group ID '$groupId' | ${exception.message}")
         }
