@@ -37,6 +37,7 @@ import { ConsumerGroupOverviewComponent } from './components/consumerGroup/consu
 import { GatewayOverviewComponent } from './components/gateway/gateway-overview/gateway-overview.component';
 import { ConsumerGroupModeSelectionComponent } from './components/consumerGroup/consumer-group-mode-selection/consumer-group-mode-selection.component';
 import { ProgressBarDialogComponent } from './components/progress-bar-dialog/progress-bar-dialog.component';
+import { GatewayDetailsComponent } from './components/gateway/gateway-details/gateway-details.component';
 
 export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
   return new TranslateHttpLoader(http);
@@ -51,7 +52,8 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     ConsumerGroupOverviewComponent,
     GatewayOverviewComponent,
     ConsumerGroupModeSelectionComponent,
-    ProgressBarDialogComponent
+    ProgressBarDialogComponent,
+    GatewayDetailsComponent
   ],
   imports: [
     BrowserModule,

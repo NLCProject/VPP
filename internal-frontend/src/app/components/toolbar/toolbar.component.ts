@@ -32,7 +32,9 @@ export class ToolbarComponent implements OnInit, OnDestroy {
   }
 
   public openDetails(gatewayId: string): void {
-    this.router.navigate([`/gateway/details`, gatewayId]);
+    const urlTree = this.router.createUrlTree([`/gateway/details`, gatewayId]);
+    const url = this.router.serializeUrl(urlTree);
+    window.open(url, '_blank');
   }
 
   private loadInterval(): void {

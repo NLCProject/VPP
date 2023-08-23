@@ -1,40 +1,36 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {SystemService} from "../../../services/rest/system.service";
+import {ActivatedRoute} from "@angular/router";
 import {TranslationService} from "../../../services/translation/translation.service";
 import {GatewayDto} from "../../../dto/GatewayDto";
-import {Router} from "@angular/router";
 
 @Component({
-  selector: 'app-gateway-overview',
-  templateUrl: './gateway-overview.component.html',
-  styleUrls: ['./gateway-overview.component.scss']
+  selector: 'app-gateway-details',
+  templateUrl: './gateway-details.component.html',
+  styleUrls: ['./gateway-details.component.scss']
 })
-export class GatewayOverviewComponent implements OnInit, OnDestroy {
+export class GatewayDetailsComponent implements OnInit, OnDestroy {
 
   constructor(
-    protected router: Router,
     private systemService: SystemService,
+    private activatedRoute: ActivatedRoute,
     private translationService: TranslationService
   ) { }
 
+  private gatewayId = '';
   private interval: any = null;
   public loading = true;
-  public gateways: GatewayDto[] = [];
+  public selectedTab = 0;
+  public gateway: GatewayDto | null = null;
 
   public ngOnInit(): void {
-    this.loadInterval();
+    this.getGatewayId();
   }
 
   public ngOnDestroy(): void {
     if (this.interval) {
       clearInterval(this.interval);
     }
-  }
-
-  public openDetails(gatewayId: string): void {
-    const urlTree = this.router.createUrlTree([`/gateway/details`, gatewayId]);
-    const url = this.router.serializeUrl(urlTree);
-    window.open(url, '_blank');
   }
 
   private loadInterval(): void {
@@ -45,10 +41,18 @@ export class GatewayOverviewComponent implements OnInit, OnDestroy {
     }, 2_000);
   }
 
+  private getGatewayId(): void {
+    this.activatedRoute.params.subscribe(params => {
+      const key = 'gatewayId';
+      this.gatewayId = params[key];
+      this.loadInterval();
+    });
+  }
+
   private loadData(): void {
-    this.systemService.findAll().subscribe(
+    this.systemService.findById(this.gatewayId).subscribe(
       response => {
-        this.gateways = response;
+        this.gateway = response;
         this.loading = false;
       }, error => {
         this.translationService.showSnackbar(error);

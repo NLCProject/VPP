@@ -1,11 +1,16 @@
-<mat-tab-group [(selectedIndex)]="selectedTab" mat-align-tabs="center">
-  <mat-tab label="Systeme" fxFlex="90">
-    <app-system-overview *ngIf="gateway" [systems]="gateway!!.systems" [loading]="loading"></app-system-overview>
-  </mat-tab>
+<app-progress-bar [loading]="loading"></app-progress-bar>
 
-  <mat-tab label="Verbrauchergruppen" fxFlex="90">
-    <app-consumer-group-overview *ngIf="gateway" [groups]="gateway!!.groups" [loading]="loading"></app-consumer-group-overview>
+<mat-tab-group mat-align-tabs="center">
+  <mat-tab label="Gateway" fxFlex="90">
+    <div fxLayout="column" fxLayoutAlign="center center" *ngIf="(gateways.length === 0) && !loading">
+      <div style="width: 100%; height: 100px;"></div>
+      <h1 class="no-entries">Keine Gateways registriert</h1>
+    </div>
+
+    <mat-divider *ngIf="gateways.length > 0"></mat-divider>
+    <mat-list role="list" *ngFor="let gateway of gateways">
+      <mat-list-item role="listitem" (click)="openDetails(gateway.id)">{{ gateway.serialNumber }}</mat-list-item>
+      <mat-divider></mat-divider>
+    </mat-list>
   </mat-tab>
 </mat-tab-group>
-
-<app-progress-bar [loading]="loading"></app-progress-bar>

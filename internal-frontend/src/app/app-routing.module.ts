@@ -1,15 +1,15 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import {ToolbarComponent} from './components/toolbar/toolbar.component';
+import {GatewayDetailsComponent} from "./components/gateway/gateway-details/gateway-details.component";
 import {GatewayOverviewComponent} from "./components/gateway/gateway-overview/gateway-overview.component";
 
 const routes: Routes = [
   {
     path: 'dashboard',
-    component: ToolbarComponent
+    component: GatewayOverviewComponent
   }, {
     path: 'gateway/details/:gatewayId',
-    component: GatewayOverviewComponent
+    component: GatewayDetailsComponent
   }, {
     path: '**',
     redirectTo: '/dashboard'
