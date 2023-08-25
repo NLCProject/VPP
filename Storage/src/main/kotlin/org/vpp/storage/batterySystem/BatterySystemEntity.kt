@@ -26,7 +26,7 @@ class BatterySystemEntity : DistributedEntity() {
     @OneToMany(fetch = FetchType.EAGER, cascade = [CascadeType.MERGE], mappedBy = "system")
     var measurements: MutableList<MeasurementEntity> = mutableListOf()
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = [CascadeType.MERGE])
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "gateway_id")
     lateinit var gateway: GatewayEntity
 }

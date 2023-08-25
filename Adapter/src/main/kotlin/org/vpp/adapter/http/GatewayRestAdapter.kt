@@ -6,7 +6,6 @@ import org.springframework.stereotype.Service
 import org.springframework.web.client.RestTemplate
 import org.vpp.storage.batterySystem.BatterySystemEntity
 import org.vpp.storage.batterySystem.BatterySystemRepository
-import org.vpp.storage.consumerGroup.ConsumerGroupRepository
 import org.vpp.storage.consumerGroup.ConsumerMode
 import org.vpp.storage.gateway.GatewayEntity
 import org.vpp.storage.gateway.GatewayRepository
@@ -42,9 +41,12 @@ class GatewayRestAdapter @Autowired constructor(
                         entity.status = it.status
                         entity.manufacturer = it.manufacturer
                         entity.serialNumber = it.serialNumber
-                        entity.group = consumerGroupService.findOrCreateGroup(group = it.group!!, gateway = gateway)
+
+                        if (entity.group.id != it.group!!.id)
+                            entity.group = consumerGroupService.findOrCreateGroup(group = it.group!!, gateway = gateway)
+
                         batterySystemRepository.save(entity)
-                        return
+                        return@forEach
                     }
 
                     val entity = BatterySystemEntity()
